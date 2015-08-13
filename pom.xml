@@ -7,7 +7,6 @@
 	<packaging>war</packaging>
 
 	<name>dcms</name>
-	<url>http://maven.apache.org</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -296,7 +295,7 @@
 	<build>
 		<resources>
 			<resource>
-				<directory>${basedir}/src/main/java</directory>
+				<directory>${basedir}/src/java</directory>
 			</resource>
 			<resource>
 				<directory>${basedir}/src/main/resources</directory>
@@ -304,24 +303,36 @@
 			</resource>
 		</resources>
 		<plugins>
-			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
-					<warSourceDirectory>${basedir}/webapp</warSourceDirectory>
-					<webXml>${basedir}/WebContent/WEB-INF/web.xml</webXml>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<configuration>
-					<wtpversion>2.0</wtpversion>
-					<useProjectReferences>false</useProjectReferences>
-					<downloadSources>false</downloadSources>
-					<ajdtVersion>none</ajdtVersion>
-					<!-- fix aspectjrt-1.5.4.jar not included problem -->
-				</configuration>
-			</plugin>
+
+			<!--<plugin>-->
+				<!--<groupId>org.apache.maven.plugins</groupId>-->
+				<!--<artifactId>maven-eclipse-plugin</artifactId>-->
+				<!--<configuration>-->
+					<!--<wtpversion>2.0</wtpversion>-->
+					<!--<useProjectReferences>false</useProjectReferences>-->
+					<!--<downloadSources>false</downloadSources>-->
+					<!--<ajdtVersion>none</ajdtVersion>-->
+					<!--&lt;!&ndash; fix aspectjrt-1.5.4.jar not included problem &ndash;&gt;-->
+				<!--</configuration>-->
+			<!--</plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <classesDirectory>${basedir}/src</classesDirectory>
+                            <finalName>dcms</finalName>
+                            <outputDirectory>${basedir}/WebContent/WEB-INF/lib</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
